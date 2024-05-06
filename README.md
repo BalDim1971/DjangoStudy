@@ -1,0 +1,2 @@
+# DjangoStudy
+Изучаем Джанго (Django)
