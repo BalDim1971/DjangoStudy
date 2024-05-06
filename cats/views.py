@@ -1,7 +1,6 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponsePermanentRedirect
 from django.shortcuts import redirect
-
-from women.views import index
+from django.urls import reverse
 
 
 # Create your views here.
@@ -18,10 +17,11 @@ def categories_by_slug(request, cat_slug):
     if request.GET:
         print(request.GET)
     return HttpResponse(f"<h1>Статьи по категории</h1><p >slug:"
-                        f"{ cat_slug }</p>")
+                        f"{cat_slug}</p>")
 
 
 def archive(request, year):
     if year > 2023:
-        return redirect(index, permanent=True)
+        uri = reverse('cats', args=('sport', ))
+        return HttpResponsePermanentRedirect(uri)
     return HttpResponse(f"<h1>Архив по годам</h1><p >{year}</p>")
