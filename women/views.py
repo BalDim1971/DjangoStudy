@@ -4,4 +4,4 @@ from django.shortcuts import render
 
 # Create your views here.
 def index(request):
-    return HttpResponse("Страница приложения women")
+    return HttpResponse("<h1>Страница приложения women</h1>")
