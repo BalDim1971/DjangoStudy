@@ -1,9 +1,14 @@
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponseNotFound
+from django.shortcuts import render
 
 
 # Create your views here.
 def index(request):
-    return HttpResponse("<h1>Страница приложения women</h1>")
+    return render(request, 'women/index.html')
+
+
+def about(request):
+    return render(request, 'women/about.html')
 
 
 def page_not_found(request, exception):
