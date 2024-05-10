@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+</head>
+<body>
+<!--<p >{{menu}}</p>-->
+<!--<p >{{menu|first}}</p>-->
+<!--<p >{{menu|last}}</p>-->
+<p >{{menu|join:" | "}}</p>
+
+<!--<p >{{float}} {{float|add:"50"}}</p>-->
+<!--<p >{{float|divisibleby:"2"}}</p>-->
+<!--<p >{{lst}}</p>-->
+<!--<p >Len lst={{lst|length}}</p>-->
+<!--<p >{{set}}</p>-->
+<!--<p >{{dict}}</p>-->
+<!--<p >{{obj.a}} {{obj.b}}</p>-->
+<!--<p >{{"The Main Page"|slugify}}</p>-->
+<!--<p >url={{url}}</p>-->
+
+<h1>{{title}}</h1>
+<!--<h1>{{title|capfirst}}</h1>-->
+<!--<h1>{{title|upper}}</h1>-->
+<!--<h1>{{title|lower}}</h1>-->
+<!--<h1>{{title|cut:" "}}</h1>-->
+<!--<h1>{{title|cut:" "|cut:"а"}}</h1>-->
+<!--<h1>{{main_title|default:"Без заголовка"}}</h1>-->
+
+<ul>
+    {% for p in posts %}
+    {% if p.is_published %}
+    <li>
+        <h2>{{ p.title }}</h2>
+        <p >{{ p.content }}</p>
+        {% if not forloop.last %}
+        <hr>
+        {% endif %}
+    </li>
+    {% endif %}
+    {% endfor %}
+</ul>
+
+</body>
+</html>
