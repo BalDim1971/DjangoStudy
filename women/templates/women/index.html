@@ -7,8 +7,14 @@
 <!--<p >{{menu}}</p>-->
 <!--<p >{{menu|first}}</p>-->
 <!--<p >{{menu|last}}</p>-->
-<p >{{menu|join:" | "}}</p>
-
+<ul>
+<li><a href="{% url 'home' %}">Главная</a></li>
+{% for m in menu %}
+{% if not forloop.last %}<li>{% else %}<li class="last">{% endif %}
+         <a href="{% url m.url_name %}">{{m.title}}</a>
+</li>
+{% endfor %}
+</ul>
 <!--<p >{{float}} {{float|add:"50"}}</p>-->
 <!--<p >{{float|divisibleby:"2"}}</p>-->
 <!--<p >{{lst}}</p>-->
@@ -33,6 +39,7 @@
     <li>
         <h2>{{ p.title }}</h2>
         <p >{{ p.content }}</p>
+        <p ><a href="{% url 'post' p.id %}">Читать пост</a></p>
         {% if not forloop.last %}
         <hr>
         {% endif %}
