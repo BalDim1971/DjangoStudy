@@ -1,6 +1,6 @@
 from django.http import HttpResponseNotFound
 from django.shortcuts import render
-
+from django.template.defaultfilters import slugify
 
 menu = ["О сайте", "Добавить статью", "Обратная связь", "Войти"]
 
@@ -14,7 +14,9 @@ class MyClass:
 # Create your views here.
 def index(request):
     data = {
-        'title': 'Главная страница',
+        'title': 'главная страница',
+        'main_title': 'main_title',
+        'url': slugify("The Main Title 1"),
         'menu': menu,
         'float': 28.56,
         'lst': [1, 2, 'abc', True],
