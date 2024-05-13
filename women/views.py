@@ -1,6 +1,6 @@
 from django.http import HttpResponseNotFound, HttpResponse
 from django.shortcuts import render
-from django.template.defaultfilters import slugify
+
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Добавить статью", 'url_name': 'add_page'},
@@ -26,18 +26,13 @@ data_db = [
 ]
 
 
-class MyClass:
-    def __init__(self, a, b):
-        self.a = a
-        self.b = b
-
-
 # Create your views here.
 def index(request):
     data = {
         'title': 'Главная страница',
         'menu': menu,
         'posts': data_db,
+        'cat_selected': 0,  # не обязательная строчка
     }
     return render(request, 'women/index.html', context=data)
 
