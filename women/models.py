@@ -22,6 +22,9 @@ class Women(models.Model):
     time_update = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(choices=Status.choices,
                                        default=Status.DRAFT)
+    cat = models.ForeignKey('cats.Category',
+                            on_delete=models.PROTECT,
+                            related_name='posts')
     
     objects = models.Manager()
     published = PublishedModel()

@@ -1,7 +1,8 @@
 from django.http import HttpResponse, HttpResponsePermanentRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
+from cats.models import Category
 from women.models import Women
 from women.views import menu
 
@@ -34,11 +35,14 @@ def archive(request, year):
     return HttpResponse(f"<h1>Архив по годам</h1><p >{year}</p>")
 
 
-def show_category(request, cat_id):
+def show_category(request, cat_slug):
+    category = get_object_or_404(Category, slug=cat_slug)
+    posts = Women.published.filter(cat_id=category.pk)
     data = {
-        'title': 'Отображение по рубрикам',
+        'title': f'Рубрика: {category.name}',
         'menu': menu,
-        'posts': Women.published.all(),
-        'cat_selected': cat_id,
+        'posts': posts,
+        'cat_selected': category.pk,
     }
+    
     return render(request, 'women/index.html', context=data)
