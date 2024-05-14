@@ -25,7 +25,10 @@ class Women(models.Model):
     cat = models.ForeignKey('cats.Category',
                             on_delete=models.PROTECT,
                             related_name='posts')
-    
+    tags = models.ManyToManyField('cats.TagPost',
+                                  blank=True,
+                                  related_name='tags')
+
     objects = models.Manager()
     published = PublishedModel()
 
