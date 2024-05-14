@@ -1,45 +1,24 @@
-<!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <title>{{title}}</title>
-</head>
-<body>
-<!--<p >{{menu}}</p>-->
-<!--<p >{{menu|first}}</p>-->
-<!--<p >{{menu|last}}</p>-->
-<p >{{menu|join:" | "}}</p>
+{% extends 'base.html' %}
 
-<!--<p >{{float}} {{float|add:"50"}}</p>-->
-<!--<p >{{float|divisibleby:"2"}}</p>-->
-<!--<p >{{lst}}</p>-->
-<!--<p >Len lst={{lst|length}}</p>-->
-<!--<p >{{set}}</p>-->
-<!--<p >{{dict}}</p>-->
-<!--<p >{{obj.a}} {{obj.b}}</p>-->
-<!--<p >{{"The Main Page"|slugify}}</p>-->
-<!--<p >url={{url}}</p>-->
+{% block content %}
 
-<h1>{{title}}</h1>
-<!--<h1>{{title|capfirst}}</h1>-->
-<!--<h1>{{title|upper}}</h1>-->
-<!--<h1>{{title|lower}}</h1>-->
-<!--<h1>{{title|cut:" "}}</h1>-->
-<!--<h1>{{title|cut:" "|cut:"а"}}</h1>-->
-<!--<h1>{{main_title|default:"Без заголовка"}}</h1>-->
-
-<ul>
+<ul class="list-articles">
     {% for p in posts %}
-    {% if p.is_published %}
-    <li>
-        <h2>{{ p.title }}</h2>
-        <p >{{ p.content }}</p>
-        {% if not forloop.last %}
-        <hr>
-        {% endif %}
-    </li>
-    {% endif %}
+        <li>
+            <div class="article-panel">
+                <p class="first">Категория: {{p.cat.name}}</p>
+                <p class="last">Дата: {{p.time_update|date:"d-m-Y H:i:s"}}</p>
+            </div>
+            <h2>{{ p.title }}</h2>
+            {% autoescape off %}
+            {{ p.content|linebreaks|truncatewords:50 }}
+            {% endautoescape  %}
+            <div class="clear"></div>
+            <p class="link-read-post">
+                <a href="{{ p.get_absolute_url }}">Читать пост</a>
+            </p>
+        </li>
     {% endfor %}
 </ul>
 
-</body>
-</html>
+{% endblock %}

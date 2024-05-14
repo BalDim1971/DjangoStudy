@@ -1,9 +1,17 @@
 from django.http import HttpResponse, HttpResponsePermanentRedirect
-from django.shortcuts import redirect
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
+from cats.models import Category
+from women.models import Women
+from women.views import menu
 
-# Create your views here.
+cats_db = [
+    {'id': 1, 'name': 'Актрисы'},
+    {'id': 2, 'name': 'Певицы'},
+    {'id': 3, 'name': 'Спортсменки'},
+]
+
 
 def categories(request):
     return HttpResponse("<h1>Статьи по категориям</h1>")
@@ -22,6 +30,19 @@ def categories_by_slug(request, cat_slug):
 
 def archive(request, year):
     if year > 2023:
-        uri = reverse('cats', args=('sport', ))
+        uri = reverse('cats', args=('sport',))
         return HttpResponsePermanentRedirect(uri)
     return HttpResponse(f"<h1>Архив по годам</h1><p >{year}</p>")
+
+
+def show_category(request, cat_slug):
+    category = get_object_or_404(Category, slug=cat_slug)
+    posts = Women.published.filter(cat_id=category.pk)
+    data = {
+        'title': f'Рубрика: {category.name}',
+        'menu': menu,
+        'posts': posts,
+        'cat_selected': category.pk,
+    }
+    
+    return render(request, 'women/index.html', context=data)
