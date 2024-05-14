@@ -2,7 +2,8 @@ from django.http import HttpResponse, HttpResponsePermanentRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from women.views import menu, data_db
+from women.models import Women
+from women.views import menu
 
 cats_db = [
     {'id': 1, 'name': 'Актрисы'},
@@ -37,7 +38,7 @@ def show_category(request, cat_id):
     data = {
         'title': 'Отображение по рубрикам',
         'menu': menu,
-        'posts': data_db,
+        'posts': Women.published.all(),
         'cat_selected': cat_id,
     }
     return render(request, 'women/index.html', context=data)
