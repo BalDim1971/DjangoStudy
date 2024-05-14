@@ -1,5 +1,3 @@
-from django import template
-
 from cats.models import TagPost
 from women.templatetags.women_tags import register
 

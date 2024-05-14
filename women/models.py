@@ -28,6 +28,9 @@ class Women(models.Model):
     tags = models.ManyToManyField('cats.TagPost',
                                   blank=True,
                                   related_name='tags')
+    husband = models.OneToOneField('Husband', on_delete=models.SET_NULL,
+                                   null=True, blank=True,
+                                   related_name='wuman')
 
     objects = models.Manager()
     published = PublishedModel()
@@ -47,3 +50,11 @@ class Women(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Husband(models.Model):
+    name = models.CharField(max_length=100, verbose_name='Имя супруга')
+    age = models.IntegerField(null=True, verbose_name='Возраст')
+
+    def __str__(self):
+        return self.name
