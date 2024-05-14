@@ -55,6 +55,8 @@ class Women(models.Model):
 class Husband(models.Model):
     name = models.CharField(max_length=100, verbose_name='Имя супруга')
     age = models.IntegerField(null=True, verbose_name='Возраст')
+    m_count = models.IntegerField(blank=True, default=0,
+                                  verbose_name='Количество женитьб')
 
     def __str__(self):
         return self.name
