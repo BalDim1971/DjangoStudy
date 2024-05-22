@@ -1,6 +1,6 @@
 from django.urls import path, register_converter
 
-from cats.views import categories, categories_by_slug, archive, show_category, show_tag_postlist
+from cats.views import categories, archive, show_category, show_tag_postlist
 from cats.converters import FourDigitYearConverter
 
 register_converter(FourDigitYearConverter, "year4")

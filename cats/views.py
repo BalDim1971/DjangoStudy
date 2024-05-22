@@ -44,7 +44,7 @@ def show_category(request, cat_slug):
         'posts': posts,
         'cat_selected': category.pk,
     }
-    
+
     return render(request, 'women/index.html', context=data)
 
 
@@ -57,5 +57,5 @@ def show_tag_postlist(request, tag_slug):
         'posts': posts,
         'cat_selected': None,
     }
-    
+
     return render(request, 'women/index.html', context=data)

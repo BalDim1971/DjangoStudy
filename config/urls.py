@@ -25,4 +25,8 @@ urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path('', include('women.urls')),
     path('cats/', include('cats.urls')),
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
+
+admin.site.site_header = "Панель администрирования"
+admin.site.index_title = "Известные женщины мира"
