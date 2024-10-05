@@ -1,3 +1,8 @@
+from multiprocessing.util import MAXFD
+from token import MINUS
+from zipimport import MAX_COMMENT_LEN
+
+from django.core.validators import MinLengthValidator, MaxLengthValidator
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.urls import reverse
@@ -27,6 +32,10 @@ class Women(models.Model):
 
     title = models.CharField(max_length=255, verbose_name='Заголовок')
     slug = models.SlugField(max_length=255, db_index=True, unique=True,
+                            validators=[
+                                MinLengthValidator(5),
+                                MaxLengthValidator(100),
+                            ],
                             verbose_name='Slug')
     content = models.TextField(blank=True, verbose_name='Текст статьи')
     time_create = models.DateTimeField(auto_now_add=True,
