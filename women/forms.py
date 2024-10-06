@@ -1,4 +1,3 @@
-from sqlite3.dbapi2 import paramstyle
 from xml.dom import ValidationErr
 
 from django import forms
@@ -33,7 +32,7 @@ class AddPostForm(forms.ModelForm):
     husband = forms.ModelChoiceField(queryset=Husband.objects.all(),
                                      required=False, label='Муж',
                                      empty_label='Не замужем')
-
+    
     class Meta:
         model = Women
         fields = ['title',
@@ -57,5 +56,9 @@ class AddPostForm(forms.ModelForm):
             raise ValidationError("Должны быть только русские символы, дефис и пробел.")
         if len(title) > 50:
             raise ValidationError("Название не должно превышать 50 символов.")
-
+        
         return title
+
+
+class UploadFileForm(forms.Form):
+    file = forms.ImageField(label='Изображение')
