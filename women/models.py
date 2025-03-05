@@ -1,7 +1,3 @@
-from multiprocessing.util import MAXFD
-from token import MINUS
-from zipimport import MAX_COMMENT_LEN
-
 from django.core.validators import MinLengthValidator, MaxLengthValidator
 from django.db import models
 from django.template.defaultfilters import slugify
@@ -29,7 +25,7 @@ class Women(models.Model):
     class Status(models.IntegerChoices):
         DRAFT = 0, 'Черновик'
         PUBLISHED = 1, 'Опубликовано'
-
+    
     title = models.CharField(max_length=255, verbose_name='Заголовок')
     slug = models.SlugField(max_length=255, db_index=True, unique=True,
                             validators=[
@@ -37,6 +33,8 @@ class Women(models.Model):
                                 MaxLengthValidator(100),
                             ],
                             verbose_name='Slug')
+    photo = models.ImageField(upload_to='photos/%Y/%m/%d', default=None,
+                              blank=True, null=True, verbose_name='Фото')
     content = models.TextField(blank=True, verbose_name='Текст статьи')
     time_create = models.DateTimeField(auto_now_add=True,
                                        verbose_name='Время создания')
@@ -57,10 +55,10 @@ class Women(models.Model):
     husband = models.OneToOneField('Husband', on_delete=models.SET_NULL,
                                    null=True, blank=True,
                                    related_name='wuman', verbose_name='Муж')
-
+    
     objects = models.Manager()
     published = PublishedModel()
-
+    
     class Meta:
         """
         Сортировка статей по времени создания.
@@ -72,13 +70,13 @@ class Women(models.Model):
         ]
         verbose_name = 'Известная женщина'
         verbose_name_plural = 'Известные женщины'
-
+    
     def get_absolute_url(self):
         return reverse('post', kwargs={'post_slug': self.slug})
-
+    
     def __str__(self):
         return self.title
-
+    
     # def save(self, *args, **kwargs):
     #     self.slug = slugify(self.title)
     #     super().save(*args, **kwargs)
@@ -90,6 +88,10 @@ class Husband(models.Model):
     age = models.IntegerField(null=True, verbose_name='Возраст')
     m_count = models.IntegerField(blank=True, default=0,
                                   verbose_name='Количество женитьб')
-
+    
     def __str__(self):
         return self.name
+
+
+class UploadFile(models.Model):
+    file = models.FileField(upload_to='uploads_model')
