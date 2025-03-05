@@ -38,6 +38,7 @@ class AddPostForm(forms.ModelForm):
         fields = ['title',
                   'slug',
                   'content',
+                  'photo',
                   'is_published',
                   'cat',
                   'husband',
